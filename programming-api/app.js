@@ -281,11 +281,20 @@ const checkSameCode = async (request) =>{
 const getAssPollingByKey = async (request, urlPatternResult) =>{
   const key = urlPatternResult.pathname.groups.id;
 
-  const data = await programmingAssignmentService.getAssignmentByKey(key)
+  var data = await programmingAssignmentService.getAssignmentByKey(key)
 
   console.log("getAssPollingByKey: ")
 
+  data = data[0]
   console.log(data)
+
+  if (data){
+    return new Response(JSON.stringify({programming_assignment_id: data.programming_assignment_id, correct: data.correct, feedback: data.grader_feedback }))
+  }
+  else{
+    return new Response(JSON.stringify({}))
+  }
+  
 }
 
 

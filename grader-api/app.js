@@ -136,7 +136,7 @@ if __name__ == '__main__':
       } else {
           console.log("Queue is empty.");
       }
-  }, 1000); // Check every second for new items (adjust interval as needed)
+  }, 2000); // Check every second for new items (adjust interval as needed)
 }
 
 
