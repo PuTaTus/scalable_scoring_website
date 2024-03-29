@@ -40,7 +40,8 @@ const getGrade = async (request) => {
     testCode: testCode,
     code: user_code,
     userUuid: userUuid,
-    index: requestData["assIndex"]
+    index: requestData["assIndex"],
+    uniqueKey: requestData.key
   };
 
   console.log("Data: ")
@@ -277,6 +278,16 @@ const checkSameCode = async (request) =>{
   return new Response(JSON.stringify({grader_feedback: checkData[0].grader_feedback, status:1, correct:checkData[0].correct}))
 }
 
+const getAssPollingByKey = async (request, urlPatternResult) =>{
+  const key = urlPatternResult.pathname.groups.id;
+
+  const data = await programmingAssignmentService.getAssignmentByKey(key)
+
+  console.log("getAssPollingByKey: ")
+
+  console.log(data)
+}
+
 
 const urlMapping = [
   {
@@ -303,6 +314,11 @@ const urlMapping = [
     method: "GET",
     pattern: new URLPattern({ pathname: "/grade/lenAss"}),
     fn: getNumberHandoutsApi
+  },
+  {
+    method: "GET",
+    pattern: new URLPattern({ pathname: "/grade/shortPolling/:id"}),
+    fn: getAssPollingByKey
   }
 
 ];

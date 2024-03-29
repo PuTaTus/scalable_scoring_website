@@ -125,7 +125,7 @@ if __name__ == '__main__':
           
           // Store the result on db.
           try{
-            await databaseServices.storeGradingResult(data.index, data.code, data.userUuid, isCorrect, feedback)
+            await databaseServices.storeGradingResult(data.uniqueKey, data.index, data.code, data.userUuid, isCorrect, feedback)
             console.log("Success adding stuff to db")
           }
           catch(e){
@@ -159,7 +159,8 @@ const handleRequest = async (request) => {
       testCode: testCode,
       code: code,
       userUuid: uuid,
-      index: requestData.index
+      index: requestData.index,
+      uniqueKey: requestData.uniqueKey
     };
 
     myQueue.enqueue(data)

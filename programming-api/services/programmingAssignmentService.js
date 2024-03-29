@@ -50,4 +50,13 @@ const isSamecode = async (code, index ) => {
   WHERE code=${code} AND programming_assignment_id=${index}`
 }
 
-export { findAll, getHandout, getNumberHandouts, insertSubmission, getLatestAss, isSamecode, findSubmission };
+const getAssignmentByKey = async (key) => {
+  return await sql`
+    SELECT * 
+    FROM programming_assignment_submissions 
+    WHERE id = ${key}
+  `;
+};
+
+
+export { findAll, getHandout, getNumberHandouts, insertSubmission, getLatestAss, isSamecode, findSubmission, getAssignmentByKey };

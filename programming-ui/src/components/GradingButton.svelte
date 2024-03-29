@@ -50,11 +50,14 @@
       // SEND FOR GRADING
       console.log("THERE IS NO PREVIOUS LOG")
       console.log("usercode: ", userCode)
+
+      const uniqueKey = Math.floor(Math.random() * 90000) + 10000;
       let data = {
         user: $userUuid,
         code: userCode, // code from the user passed from CodeArea.svelte through index.astro
         assIndex: $assIndex,
-        userUuid: $userUuid
+        userUuid: $userUuid,
+        key: uniqueKey
       };
 
       console.log("GRADE")
@@ -76,13 +79,20 @@
       // Function to perform short polling
       async function shortPolling() {
           try {
-              const response = await fetch('server_endpoint_url'); // URL of the server endpoint to check for updates
+              const response = await fetch(`/grade/shortPolling/${uniqueKey}`, {
+                  method: "GET",
+                  headers: {
+                      "Content-Type": "application/json",
+                  },
+              }); // URL of the server endpoint to check for updates
               if (!response.ok) {
                   throw new Error('Network response was not ok');
               }
               const data = await response.text(); // Assuming server responds with plain text
-              // Handle the response from the server
-              document.getElementById('status').innerHTML = data; // Update the status on the webpage
+              
+              // Add your code to handle the received data here
+              console.log('Received data:', data);
+
           } catch (error) {
               // Handle errors
               console.error('Error:', error);
@@ -94,16 +104,27 @@
       // Function to wait until polling is finished
       async function waitForPolling() {
         while (!pollingFinished) {
-            await new Promise(resolve => setTimeout(resolve, 100)); // Wait for 100 milliseconds before checking again
+          console.log("Short Polling, check for result")
+          await new Promise(resolve => setTimeout(resolve, 1000)); // Wait for 100 milliseconds before checking again
         }
         console.log('Short polling is complete.');
         // You can add further actions to be performed after polling is complete here
       }
 
+      // Start short polling and wait until it's finished when the document is ready
+      document.addEventListener('DOMContentLoaded', async () => {
+          await shortPolling();
+          await waitForPolling();
+
+          // Add your additional code here
+          console.log('Short polling is complete. Additional code execution starts here.');
+          // You can add further actions to be performed after short polling is complete here
+      });
+
 
       ////
 
-      // UNCOMMENT THIS LATER!!!
+      // UNCOMMENT IF NEEDED!!
       // const jsonData = await response.json();
 
       // console.log(jsonData)
@@ -145,7 +166,7 @@
       //   },
       //   body: JSON.stringify(data),
       // });
-      
+
       ////
     }
   };
