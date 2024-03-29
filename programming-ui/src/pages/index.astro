@@ -1,0 +1,19 @@
+---
+import Layout from "../layout/Layout.astro";
+import GradingButton from "../components/GradingButton.svelte";
+import CodeArea from "../components/CodeArea.svelte"
+import Handout from "../components/Handout.svelte"
+import NextButton from "../components/NextButton.svelte"
+
+// assIndex used state management techniques
+import { assIndex } from "../stores/stores.js";
+---
+
+<Layout>
+  <div>
+    <Handout client:only={"svelte"} />
+    <CodeArea client:only={"svelte"} />
+  </div>
+
+  <NextButton client:only={"svelte"}  >
+</Layout>
