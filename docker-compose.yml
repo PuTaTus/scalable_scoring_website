@@ -53,13 +53,22 @@ services:
       - ./grader-api/:/app
       - ./app-cache/:/app-cache
       - "/var/run/docker.sock:/var/run/docker.sock"
+    #
+    depends_on:
+      - database
+      - flyway
+    #
     ports:
       - 7000:7000
+    #
+    env_file:
+      - project.env
+    #
 
   database:
     container_name: database-server-dab-p1-a17fb731-8c25-4c3a-88e7-06fde5e2bfec
     image: postgres:14.1
-    restart: "no"
+    # restart: "no"
     env_file:
       - project.env
 

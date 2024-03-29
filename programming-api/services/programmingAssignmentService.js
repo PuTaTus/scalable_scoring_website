@@ -42,6 +42,7 @@ const insertSubmission = async (programmingAssignmentId, code, userUuid, correct
     throw error;
   }
 };
+
 const isSamecode = async (code, index ) => {
   return await sql`
   SELECT grader_feedback, correct 

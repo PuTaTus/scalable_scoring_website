@@ -39,7 +39,8 @@ const getGrade = async (request) => {
   const data = {
     testCode: testCode,
     code: user_code,
-    userUuid: userUuid
+    userUuid: userUuid,
+    index: requestData["assIndex"]
   };
 
   console.log("Data: ")
@@ -58,7 +59,17 @@ const getGrade = async (request) => {
     },
     body: JSON.stringify(data),
   });
+  
+  if (response == 200){
+    console.log('ALL GOOD')
+  }
+  else{
+    console.log('sumtingwong')
+  }
 
+  ////
+  return new Response(200);
+  ////
   let apiRes = await response.json()
   console.log("apiRes:")
   console.log(apiRes)
