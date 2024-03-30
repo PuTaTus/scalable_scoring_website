@@ -197,6 +197,7 @@ const getGrade = async (request) => {
 // Get number of API, directly update it to svelte store
 const getNumberHandoutsApi = async () =>{
   // run it, and update lenAssignment
+  console.log("getNumberHandoutsApi")
   let lenAssignment = await programmingAssignmentService.getNumberHandouts()
   console.log(lenAssignment)
   lenAssignment = lenAssignment[0]
