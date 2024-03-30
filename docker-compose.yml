@@ -85,9 +85,11 @@ services:
   e2e-playwright:
     entrypoint: "/bin/true"
     build: e2e-playwright
-    image: e2e-playwright
+    # image: e2e-playwright
+    image:  mcr.microsoft.com/playwright:v1.41.2-focal
     network_mode: host
     depends_on:
       - nginx
     volumes:
       - ./e2e-playwright/tests:/e2e-playwright/tests
+      # - ./node_modules:/node_modules

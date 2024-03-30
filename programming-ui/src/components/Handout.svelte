@@ -117,7 +117,7 @@
         {#if handoutData === undefined}
             <p>Loading...</p>
         {:else if handoutData !== null}
-            <p>{handoutData}</p>
+            <p id='handoutData'>{handoutData}</p>
         {:else}
             <p>Error fetching handout data</p>
         {/if}
