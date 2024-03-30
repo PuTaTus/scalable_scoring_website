@@ -62,7 +62,9 @@ services:
         window: "30s"
 
   grader-api:
-    build: grader-api
+    build: 
+      context: grader-api
+      dockerfile: Dockerfile.prod
     image: grader-api
     restart: "no"
     volumes:
@@ -80,6 +82,12 @@ services:
     env_file:
       - project.env
     #
+    deploy: 
+      restart_policy:
+        condition: on-failure
+        delay: "5s"
+        max_attempts: 5
+        window: "30s"
 
   database:
     container_name: database-server-dab-p1-a17fb731-8c25-4c3a-88e7-06fde5e2bfec
@@ -107,7 +115,8 @@ services:
   e2e-playwright:
     entrypoint: "/bin/true"
     build: e2e-playwright
-    image: e2e-playwright
+    # image: e2e-playwright
+    image: mcr.microsoft.com/playwright:v1.41.2-focal
     network_mode: host
     depends_on:
       - nginx
@@ -115,4 +124,4 @@ services:
       - ./e2e-playwright/tests:/e2e-playwright/tests
 
 
-# docker compose -f docker-compose.prod.yml up -d
+# docker compose --profile migrate -f docker-compose.prod.yml up 
