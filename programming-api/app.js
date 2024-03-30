@@ -298,6 +298,13 @@ const getAssPollingByKey = async (request, urlPatternResult) =>{
   
 }
 
+const sendPreventPrevious = async (request) => {
+  const requestData = await request.json()
+  console.log("sendPreventPrevious")
+  await programmingAssignmentService.insertSubmission(requestData["assIndex"], "", requestData.userUuid, false, "")
+
+  return new Response(200)
+}
 
 const urlMapping = [
   {
@@ -319,6 +326,11 @@ const urlMapping = [
     method: "POST",
     pattern: new URLPattern({pathname: "/grade/checkSame"}),
     fn: checkSameCode
+  },
+  {
+    method: "POST",
+    pattern: new URLPattern({pathname: "/grade/sendPreventPrevious"}),
+    fn: sendPreventPrevious
   },
   {
     method: "GET",

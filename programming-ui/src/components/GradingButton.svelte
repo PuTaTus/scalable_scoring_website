@@ -135,14 +135,17 @@
               };
               console.log('Send something to db so that it will not go back to previous')
               console.log(data)
+
               // SUBMIT the latest $assIndex so the DB won't go back to the previous question 
-              const r = await fetch("/api/grade", {
+              const r = await fetch("/api/grade/sendPreventPrevious", {
                   method: "POST",
                   headers: {
                       "Content-Type": "application/json",
                   },
                   body: JSON.stringify(data),
               });
+              
+              console.log("REQUEST SENT", await response.json())
 
           } catch (error) {
               // Handle errors

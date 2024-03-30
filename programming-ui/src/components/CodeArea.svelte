@@ -10,7 +10,7 @@
     }
 </script>
 
-<p>{$assIndex}</p>
+<!-- <p>{$assIndex}</p> -->
 
 <div class="bg-gray-100 p-8">
     <label for="codeInput">Write your code:</label>

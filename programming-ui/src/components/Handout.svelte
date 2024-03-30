@@ -112,7 +112,7 @@
 </script>
 
 <div>
-    <p>{$assIndex}</p>
+    <!-- <p>{$assIndex}</p> -->
     <h3 class="font-bold">
         {#if handoutData === undefined}
             <p>Loading...</p>
